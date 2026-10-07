@@ -79,7 +79,7 @@ public class Department {
     return description;
   }
 
-  public void setDescrption(String description) {
+  public void setDescription(String description) {
     this.description = description;
   }
 
