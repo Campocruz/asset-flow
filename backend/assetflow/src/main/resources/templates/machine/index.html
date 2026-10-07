@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <div th:insert="~{ fragments/fragments :: style }" />
+  <title>Machines page</title>
+</head>
+
+<body>
+
+  <header>
+    <div th:replace="~{ fragments/fragments :: navbar(page='machines') }" />
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Asset Code</th>
+                <th scope="col">Name</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="machine : ${machines}" th:object="${machine}">
+                <th scope="row">[[*{id}]]</th>
+                <td>[[*{assetCode}]]</td>
+                <td>[[*{name}]]</td>
+                <td>[[*{status}]]</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer></footer>
+
+</body>
+
+<div th:insert="~{ fragments/fragments :: script }" />
+
+</html>
