@@ -1,0 +1,13 @@
+spring.application.name=assetflow
+
+#data source 
+spring.datasource.url=jdbc:mysql://IP_HOST:TCP_PORT/NAME_TABLE
+spring.datasource.username=NAME_USER_DB
+spring.datasource.password=PASSWORD_USER_DB
+
+
+## Hibernate Properties 
+# The SQL dialect makes Hibernate generate better SQL for the chosen database 
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQLDialect
+# Hibernate ddl auto (create, create-drop, validate, update)
+spring.jpa.hibernate.ddl-auto = create-drop
