@@ -74,7 +74,7 @@ public class BuildingController {
 
   @PostMapping("/delete/{id}")
   public String delete(@PathVariable Integer id) {
-    buildingService.deleteBuilding(id);
+    buildingService.deleteBuildingById(id);
     return "redirect:/buildings";
   }
 

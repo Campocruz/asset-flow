@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-  @ExceptionHandler(BuildingNotFoundException.class)
+  @ExceptionHandler(NotFoundException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
-  public String handleBuildingNotFound(BuildingNotFoundException ex, Model model) {
+  public String handleBuildingNotFound(NotFoundException ex, Model model) {
     model.addAttribute("errorMessage", ex.getMessage());
     return "error/notFound";
   }

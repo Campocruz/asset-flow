@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.course.exam.assetflow.exception.BuildingNotFoundException;
+import com.course.exam.assetflow.exception.NotFoundException;
 import com.course.exam.assetflow.model.Building;
 import com.course.exam.assetflow.model.Department;
 import com.course.exam.assetflow.repository.BuildingRepository;
@@ -32,14 +32,14 @@ public class BuildingService {
     if (buildingExist(id)) {
       return buildingRepository.findById(id).get();
     }
-    throw new BuildingNotFoundException(id);
+    throw new NotFoundException(id);
   }
 
   public void setBuilding(Building building) {
     buildingRepository.save(building);
   }
 
-  public void deleteBuilding(Integer id) {
+  public void deleteBuildingById(Integer id) {
     Building buildingToDelete = getBuildingById(id);
     List<Department> departmentToDelete = buildingToDelete.getDepartments();
     for (Department depart : departmentToDelete) {

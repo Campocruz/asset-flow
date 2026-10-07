@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.course.exam.assetflow.model.Department;
-import com.course.exam.assetflow.repository.DepartmentRepository;
+import com.course.exam.assetflow.service.DepartmentService;
 
 import jakarta.validation.Valid;
 
@@ -20,17 +20,17 @@ import jakarta.validation.Valid;
 public class DepartmentController {
 
   @Autowired
-  private DepartmentRepository departmentRepository;
+  private DepartmentService departmentService;
 
   @GetMapping
   public String index(Model model) {
-    model.addAttribute("departments", departmentRepository.findAll());
+    model.addAttribute("departments", departmentService.findAllDepartment());
     return "department/index";
   }
 
   @GetMapping("/{id}")
   public String show(@PathVariable Integer id, Model model) {
-    model.addAttribute("department", departmentRepository.findById(id).get());
+    model.addAttribute("department", departmentService.getDepartmentById(id));
     return "";
   }
 
@@ -49,13 +49,13 @@ public class DepartmentController {
       return "department/edit-or-create";
     }
 
-    departmentRepository.save(formDepartment);
+    departmentService.setDepartment(formDepartment);
     return "redirect:/departments";
   }
 
   @GetMapping("/edit/{id}")
   public String edit(@PathVariable Integer id, Model model) {
-    model.addAttribute("department", departmentRepository.findById(id).get());
+    model.addAttribute("department", departmentService.getDepartmentById(id));
     model.addAttribute("typePage", true);
     return "department/edit-or-create";
   }
@@ -68,14 +68,13 @@ public class DepartmentController {
       return "department/edit-or-create";
     }
 
-    departmentRepository.save(formDepartment);
+    departmentService.setDepartment(formDepartment);
     return "redirect:/departments";
   }
 
   @PostMapping("/delete/{id}")
   public String delete(@PathVariable Integer id) {
-    Department departmentToDelete = departmentRepository.findById(id).get();
-    departmentRepository.delete(departmentToDelete);
+    departmentService.deleteDepartmentById(id);
     return "redirect:/departments";
   }
 }
