@@ -1,7 +1,5 @@
 package com.course.exam.assetflow.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.course.exam.assetflow.model.Building;
-import com.course.exam.assetflow.model.Department;
-import com.course.exam.assetflow.repository.BuildingRepository;
-import com.course.exam.assetflow.repository.DepartmentRepository;
+import com.course.exam.assetflow.service.BuildingService;
 
 import jakarta.validation.Valid;
 
@@ -24,20 +20,17 @@ import jakarta.validation.Valid;
 public class BuildingController {
 
   @Autowired
-  private BuildingRepository buildingRepository;
-
-  @Autowired
-  private DepartmentRepository departmentRepository;
+  private BuildingService buildingService;
 
   @GetMapping
   public String index(Model model) {
-    model.addAttribute("buildings", buildingRepository.findAll());
+    model.addAttribute("buildings", buildingService.findAllBuilding());
     return "building/index";
   }
 
   @GetMapping("/{id}")
   public String show(@PathVariable Integer id, Model model) {
-    model.addAttribute("building", buildingRepository.findById(id).get());
+    model.addAttribute("building", buildingService.getBuildingById(id));
     return "";
   }
 
@@ -56,13 +49,13 @@ public class BuildingController {
       return "building/edit-or-create";
     }
 
-    buildingRepository.save(formBuilding);
+    buildingService.setBuilding(formBuilding);
     return "redirect:/buildings";
   }
 
   @GetMapping("/edit/{id}")
   public String edit(@PathVariable Integer id, Model model) {
-    model.addAttribute("building", buildingRepository.findById(id).get());
+    model.addAttribute("building", buildingService.getBuildingById(id));
     model.addAttribute("typePage", true);
     return "building/edit-or-create";
   }
@@ -75,18 +68,13 @@ public class BuildingController {
       return "building/edit-or-create";
     }
 
-    buildingRepository.save(formBuilding);
+    buildingService.setBuilding(formBuilding);
     return "redirect:/buildings";
   }
 
   @PostMapping("/delete/{id}")
   public String delete(@PathVariable Integer id) {
-    Building buildingToDelete = buildingRepository.findById(id).get();
-    List<Department> departmentToDelete = buildingToDelete.getDepartments();
-    for (Department department : departmentToDelete) {
-      departmentRepository.delete(department);
-    }
-    buildingRepository.delete(buildingToDelete);
+    buildingService.deleteBuilding(id);
     return "redirect:/buildings";
   }
 
