@@ -48,15 +48,17 @@
               </ul>
             </li>
           </ul>
-          <div class="btn btn-primary" th:if="${page == 'building'}">
-            <a class=" nav-link" th:href="@{/building/create}">Nuovo Fabbricato</a>
-          </div>
-          <div class="btn btn-secondary" th:if="${page == 'department'}">
-            <a class=" nav-link" th:href="@{/department/create}">Nuovo Reparto</a>
-          </div>
-          <div class="btn btn-secondary" th:if="${page == 'machine'}">
-            <a class=" nav-link" th:href="@{/department/create}">Nuova macchina</a>
-          </div>
+          <section class="px-2">
+            <div class="btn btn-secondary" th:if="${page == 'buildings'}">
+              <a class=" nav-link" th:href="@{/buildings/create}">Nuovo Fabbricato</a>
+            </div>
+            <div class="btn btn-secondary" th:if="${page == 'departments'}">
+              <a class=" nav-link" th:href="@{/departments/create}">Nuovo Reparto</a>
+            </div>
+            <div class="btn btn-secondary" th:if="${page == 'machines'}">
+              <a class=" nav-link" th:href="@{/machines/create}">Nuova macchina</a>
+            </div>
+          </section>
           <form class="d-flex" role="search" method="GET" th:action="@{/cerca}">
             <input class="form-control me-2" type="text" placeholder="Cerca" aria-label="Cerca" th:value="${value}"
               name="value" />
