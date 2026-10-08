@@ -34,17 +34,17 @@ public class DatabaseUserDetail implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
+    return this.authorities;
   }
 
   @Override
   public @Nullable String getPassword() {
-    throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
+    return this.password;
   }
 
   @Override
   public String getUsername() {
-    throw new UnsupportedOperationException("Unimplemented method 'getUsername'");
+    return this.username;
   }
 
 }
