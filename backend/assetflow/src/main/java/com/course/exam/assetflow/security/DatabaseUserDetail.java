@@ -1,4 +1,4 @@
-package com.course.exam.assetflow.service;
+package com.course.exam.assetflow.security;
 
 import java.util.Collection;
 import java.util.HashSet;
