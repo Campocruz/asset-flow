@@ -64,7 +64,7 @@ public class MachineController {
       Model model) {
     model.addAttribute("typePage", true);
     if (bindingResult.hasErrors()) {
-      return "department/edit-or-create";
+      return "machines/edit-or-create";
     }
 
     machineService.setMachine(formMachine);
