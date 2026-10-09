@@ -1,4 +1,4 @@
-package com.course.exam.assetflow.controller;
+package com.course.exam.assetflow.controller.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,71 +10,70 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.course.exam.assetflow.model.Department;
-import com.course.exam.assetflow.service.DepartmentService;
+import com.course.exam.assetflow.model.Machine;
+import com.course.exam.assetflow.service.MachineService;
 
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/departments")
-public class DepartmentController {
+@RequestMapping("/machines")
+public class MachineController {
 
   @Autowired
-  private DepartmentService departmentService;
+  private MachineService machineService;
 
   @GetMapping
   public String index(Model model) {
-    model.addAttribute("departments", departmentService.findAllDepartment());
-    return "department/index";
+    model.addAttribute("machines", machineService.findAllMachine());
+    return "machine/index";
   }
 
   @GetMapping("/{id}")
   public String show(@PathVariable Integer id, Model model) {
-    model.addAttribute("department", departmentService.getDepartmentById(id));
+    model.addAttribute("machine", machineService.getMachineById(id));
     return "";
   }
 
   @GetMapping("/create")
   public String create(Model model) {
-    model.addAttribute("department", new Department());
+    model.addAttribute("machine", new Machine());
     model.addAttribute("typePage", false);
-    return "department/edit-or-create";
+    return "machine/edit-or-create";
   }
 
   @PostMapping("/create")
-  public String create(@Valid @ModelAttribute("department") Department formDepartment, BindingResult bindingResult,
+  public String create(@Valid @ModelAttribute("machine") Machine formMachine, BindingResult bindingResult,
       Model model) {
     model.addAttribute("typePage", false);
     if (bindingResult.hasErrors()) {
-      return "department/edit-or-create";
+      return "machine/edit-or-create";
     }
-
-    departmentService.setDepartment(formDepartment);
-    return "redirect:/departments";
+    machineService.setMachine(formMachine);
+    return "redirect:/machines";
   }
 
   @GetMapping("/edit/{id}")
   public String edit(@PathVariable Integer id, Model model) {
-    model.addAttribute("department", departmentService.getDepartmentById(id));
+    model.addAttribute("machine", machineService.getMachineById(id));
     model.addAttribute("typePage", true);
-    return "department/edit-or-create";
+    return "machine/edit-or-create";
   }
 
   @PostMapping("/edit/{id}")
-  public String edit(@Valid @ModelAttribute("department") Department formDepartment, BindingResult bindingResult,
+  public String edit(@Valid @ModelAttribute("machine") Machine formMachine, BindingResult bindingResult,
       Model model) {
     model.addAttribute("typePage", true);
     if (bindingResult.hasErrors()) {
-      return "department/edit-or-create";
+      return "machines/edit-or-create";
     }
 
-    departmentService.setDepartment(formDepartment);
-    return "redirect:/departments";
+    machineService.setMachine(formMachine);
+    return "redirect:/machines";
   }
 
   @PostMapping("/delete/{id}")
   public String delete(@PathVariable Integer id) {
-    departmentService.deleteDepartmentById(id);
-    return "redirect:/departments";
+    machineService.deleteMachineById(id);
+    return "redirect:/machines";
   }
 }

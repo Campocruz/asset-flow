@@ -1,4 +1,4 @@
-package com.course.exam.assetflow.controller;
+package com.course.exam.assetflow.controller.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

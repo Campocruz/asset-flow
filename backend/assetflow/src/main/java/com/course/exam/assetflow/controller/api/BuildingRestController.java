@@ -1,4 +1,4 @@
-package com.course.exam.assetflow.controller;
+package com.course.exam.assetflow.controller.api;
 
 import java.util.List;
 
