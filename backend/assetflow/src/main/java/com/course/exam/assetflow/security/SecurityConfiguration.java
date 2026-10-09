@@ -18,15 +18,18 @@ public class SecurityConfiguration {
   @Bean
   @SuppressWarnings("removal")
   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.authorizeHttpRequests(requests -> requests
-        .requestMatchers("/buildings/create", "/buildings/edit/**").hasAuthority("ADMIN")
-        .requestMatchers(HttpMethod.POST, "/buildings/**").hasAuthority("ADMIN")
-        .requestMatchers("/departments/create", "/departments/edit/**").hasAuthority("ADMIN")
-        .requestMatchers(HttpMethod.POST, "/departments/**").hasAuthority("ADMIN")
-        .requestMatchers("/machines/create", "/machines/edit/**").hasAllAuthorities("ADMIN", "USER")
-        .requestMatchers(HttpMethod.POST, "/machines/**").hasAllAuthorities("ADMIN", "USER")
-        .requestMatchers("/", "/css/**", "/js/**").permitAll()
-        .anyRequest().authenticated())
+    http
+        .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
+        .authorizeHttpRequests(requests -> requests
+            .requestMatchers("/buildings/create", "/buildings/edit/**").hasAuthority("ADMIN")
+            .requestMatchers(HttpMethod.POST, "/buildings/**").hasAuthority("ADMIN")
+            .requestMatchers("/departments/create", "/departments/edit/**").hasAuthority("ADMIN")
+            .requestMatchers(HttpMethod.POST, "/departments/**").hasAuthority("ADMIN")
+            .requestMatchers("/machines/create", "/machines/edit/**").hasAllAuthorities("ADMIN", "USER")
+            .requestMatchers(HttpMethod.POST, "/machines/**").hasAllAuthorities("ADMIN", "USER")
+            .requestMatchers("/api/v1/**").permitAll()
+            .requestMatchers("/", "/dashboard", "/css/**", "/js/**", "/error").permitAll()
+            .anyRequest().authenticated())
         .formLogin(Customizer.withDefaults())
         .logout(Customizer.withDefaults());
     return http.build();

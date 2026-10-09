@@ -35,8 +35,9 @@ public class BuildingService {
     throw new NotFoundException(id);
   }
 
-  public void setBuilding(Building building) {
+  public Building setBuilding(Building building) {
     buildingRepository.save(building);
+    return building;
   }
 
   public void deleteBuildingById(Integer id) {
