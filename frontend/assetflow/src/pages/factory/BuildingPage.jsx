@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import LoadingPage from '../../components/global/LoadingPage/LoadingPage'
+import Form from "../../components/form/Form";
 
 const urlBuildings = 'http://127.0.0.1:8080/api/v1/buildings';
 
 export default function BuildinPage() {
 
+  const [buildForm, setBuildForm] = useState({ "code": "", "name": "", "address": "" });
   const [buildings, setBuildings] = useState();
   const [load, setLoad] = useState(true);
 
@@ -14,6 +16,10 @@ export default function BuildinPage() {
       .then(data => { setBuildings(data); setLoad(false); })
       .catch(err => console.log(err));
   }
+
+  const handleChange = (e) => {
+    setBuildForm({ ...buildForm, [e.target.name]: e.target.value });
+  };
 
   useEffect(() => {
     fetchData(urlBuildings);
@@ -49,7 +55,8 @@ export default function BuildinPage() {
             </table>
           </div>
           <div className="col-6">
-
+            <h4>Add or Edit Building</h4>
+            <Form data={buildForm} handleChange={handleChange} />
           </div>
         </div>
       </div>
