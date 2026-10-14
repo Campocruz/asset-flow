@@ -30,8 +30,9 @@ public class MachineService {
     throw new NotFoundException(id);
   }
 
-  public void setMachine(Machine machine) {
+  public Machine setMachine(Machine machine) {
     machineRepository.save(machine);
+    return machine;
   }
 
   public void deleteMachineById(Integer id) {

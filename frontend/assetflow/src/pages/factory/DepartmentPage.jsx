@@ -32,7 +32,7 @@ export default function DepartmentPage() {
                   <th scope="col">#</th>
                   <th scope="col">Code</th>
                   <th scope="col">Name</th>
-                  <th scope="col">Address</th>
+                  <th scope="col">Description</th>
                 </tr>
               </thead>
               <tbody>

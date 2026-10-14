@@ -30,8 +30,9 @@ public class DepartmentService {
     throw new NotFoundException(id);
   }
 
-  public void setDepartment(Department department) {
+  public Department setDepartment(Department department) {
     departmentRepository.save(department);
+    return department;
   }
 
   public void deleteDepartmentById(Integer id) {

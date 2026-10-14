@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import LoadingPage from "../../components/global/LoadingPage/LoadingPage";
 
-const urlBuildings = 'http://127.0.0.1:8080/api/v1/machines';
+const urlMachines = 'http://127.0.0.1:8080/api/v1/machines';
 
 export default function MachinePage() {
 
