@@ -17,6 +17,17 @@ export default function BuildinPage() {
       .catch(err => console.log(err));
   }
 
+  function postData(e) {
+    e.preventDefault();
+    fetch(urlBuildings, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(buildForm) })
+      .then(response => {
+        if (!response.ok) throw new Error(`Error: ${response.status}`);
+        setBuildForm({ "code": "", "name": "", "address": "" });
+        fetchData(urlBuildings);
+      })
+      .catch(err => console.log(err));
+  }
+
   const handleChange = (e) => {
     setBuildForm({ ...buildForm, [e.target.name]: e.target.value });
   };
@@ -56,7 +67,7 @@ export default function BuildinPage() {
           </div>
           <div className="col-6">
             <h4>Add or Edit Building</h4>
-            <Form data={buildForm} handleChange={handleChange} />
+            <Form data={buildForm} handleChange={handleChange} save={postData} />
           </div>
         </div>
       </div>
