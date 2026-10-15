@@ -56,9 +56,9 @@ public class BuildingRestController {
   @DeleteMapping("/{id}")
   public ResponseEntity<Building> delete(@PathVariable Integer id) {
     if (buildingService.buildingExist(id)) {
+      buildingService.deleteBuildingById(id);
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    buildingService.deleteBuildingById(id);
     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
   }
 }

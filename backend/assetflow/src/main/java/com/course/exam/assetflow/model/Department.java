@@ -44,7 +44,7 @@ public class Department {
   @ManyToOne
   @JoinColumn(name = "building_id", nullable = false)
   @JsonBackReference
-  private Department building;
+  private Building building;
 
   @ManyToMany
   @JoinTable(name = "department_machine", joinColumns = @JoinColumn(name = "department_id"), inverseJoinColumns = @JoinColumn(name = "machine_id"))
@@ -91,11 +91,11 @@ public class Department {
     this.machines = machines;
   }
 
-  public Department getBuilding() {
+  public Building getBuilding() {
     return building;
   }
 
-  public void setBuilding(Department building) {
+  public void setBuilding(Building building) {
     this.building = building;
   }
 

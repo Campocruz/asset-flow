@@ -35,7 +35,7 @@ public class Building {
   @Column(name = "address")
   private String address;
 
-  @OneToMany(mappedBy = "building_id")
+  @OneToMany(mappedBy = "building")
   @JsonManagedReference
   private List<Department> departments;
 
