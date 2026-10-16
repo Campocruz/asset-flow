@@ -32,8 +32,8 @@ INSERT INTO machines (id, asset_code, name, status) VALUES (10, 'IMB-01', 'Confe
 INSERT INTO machines (id, asset_code, name, status) VALUES (11, 'IMB-02', 'Pallettizzatore a strati', 'ATTIVA');
 INSERT INTO machines (id, asset_code, name, status) VALUES (12, 'LOG-01', 'Nastro trasportatore magazzino', 'FERMA');
 
-INSERT INTO department_machine (department_id, machine_id) VALUES (1, 1);
-INSERT INTO department_machine (department_id, machine_id) VALUES (2, 1);
+INSERT INTO machine_department (department_id, machine_id) VALUES (1, 1);
+INSERT INTO machine_department (department_id, machine_id) VALUES (2, 1);
 
 -- ---------------------------------------------------------------------
 -- ROLES

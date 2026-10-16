@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.course.exam.assetflow.model.Department;
+import com.course.exam.assetflow.service.BuildingService;
 import com.course.exam.assetflow.service.DepartmentService;
 
 import jakarta.validation.Valid;
@@ -21,6 +22,9 @@ public class DepartmentController {
 
   @Autowired
   private DepartmentService departmentService;
+
+  @Autowired
+  private BuildingService buildingService;
 
   @GetMapping
   public String index(Model model) {
@@ -37,6 +41,7 @@ public class DepartmentController {
   @GetMapping("/create")
   public String create(Model model) {
     model.addAttribute("department", new Department());
+    model.addAttribute("buildings", buildingService.findAllBuilding());
     model.addAttribute("typePage", false);
     return "department/edit-or-create";
   }
@@ -44,6 +49,7 @@ public class DepartmentController {
   @PostMapping("/create")
   public String create(@Valid @ModelAttribute("department") Department formDepartment, BindingResult bindingResult,
       Model model) {
+    model.addAttribute("buildings", buildingService.findAllBuilding());
     model.addAttribute("typePage", false);
     if (bindingResult.hasErrors()) {
       return "department/edit-or-create";
@@ -56,6 +62,7 @@ public class DepartmentController {
   @GetMapping("/edit/{id}")
   public String edit(@PathVariable Integer id, Model model) {
     model.addAttribute("department", departmentService.getDepartmentById(id));
+    model.addAttribute("buildings", buildingService.findAllBuilding());
     model.addAttribute("typePage", true);
     return "department/edit-or-create";
   }
@@ -63,6 +70,7 @@ public class DepartmentController {
   @PostMapping("/edit/{id}")
   public String edit(@Valid @ModelAttribute("department") Department formDepartment, BindingResult bindingResult,
       Model model) {
+    model.addAttribute("buildings", buildingService.findAllBuilding());
     model.addAttribute("typePage", true);
     if (bindingResult.hasErrors()) {
       return "department/edit-or-create";

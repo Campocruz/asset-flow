@@ -25,9 +25,8 @@
         <form th:action="${typePage} ? @{|/departments/edit/*{id}|} : @{/departments/create}" method="post">
           <div class="row">
 
-            <!-- <input type="hidden" th:field="*{pizza.id}"> -->
 
-            <div class="col-12">
+            <div class="col-6">
               <label for="code">Codice Reparto</label>
               <input id="code" type="text" class="form-control" th:field="*{code}" th:errorClass="is-invalid">
               <div class="invalid-feedback" th:if="${#fields.hasErrors('code')}">
@@ -37,7 +36,7 @@
               </div>
             </div>
 
-            <div class="col-12">
+            <div class="col-6">
               <label for="name">Nome Reparto</label>
               <input id="name" type="text" class="form-control" th:field="*{name}" th:errorClass="is-invalid">
               <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
@@ -58,9 +57,13 @@
               </div>
             </div>
 
-            <div class="col-12">
+            <div class="col-6">
               <label for="building">Fabbricato</label>
-              <input id="building" type="text" class="form-control" th:field="*{building}" th:errorClass="is-invalid">
+              <select id="building" class="form-select" th:field="*{building}" th:errorClass="is-invalid">
+                <option value="">-- Seleziona --</option>
+                <option th:each="building : ${buildings}" th:value="${building.id}" th:text="${building.name}">
+                </option>
+              </select>
               <div class="invalid-feedback" th:if="${#fields.hasErrors('building')}">
                 <ul>
                   <li th:each="error : ${#fields.errors('building')}" th:text="${error}" />

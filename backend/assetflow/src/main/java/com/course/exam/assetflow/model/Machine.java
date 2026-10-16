@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -37,7 +39,8 @@ public class Machine {
   @Column(name = "status")
   private String status;
 
-  @ManyToMany(mappedBy = "machines")
+  @ManyToMany
+  @JoinTable(name = "machine_department", joinColumns = @JoinColumn(name = "machine_id"), inverseJoinColumns = @JoinColumn(name = "department_id"))
   @JsonIgnoreProperties("machines")
   private List<Department> departments;
 

@@ -25,8 +25,6 @@
         <form th:action="${typePage} ? @{|/machines/edit/*{id}|} : @{/machines/create}" method="post">
           <div class="row">
 
-            <!-- <input type="hidden" th:field="*{pizza.id}"> -->
-
             <div class="col-12">
               <label for="assetCode">Codice Asset</label>
               <input id="assetCode" type="text" class="form-control" th:field="*{assetCode}" th:errorClass="is-invalid">
@@ -57,31 +55,28 @@
               </div>
             </div>
 
-            <!-- <div class="col-12">
-              <label for="departments">Reparto</label>
-              <input id="departments" type="text" class="form-control" th:field="*{departments}"
-                th:errorClass="is-invalid">
-              <div class="invalid-feedback" th:if="${#fields.hasErrors('departments')}">
-                <ul>
-                  <li th:each="error : ${#fields.errors('departments')}" th:text="${error}" />
-                </ul>
-              </div>
-            </div> -->
             <div class="col-12">
-              <div class="form-check" th:each="department : *{departments}">
-                <input class="form-check-input" type="checkbox" th:value="${department.id}" th:field="${department}"
-                  th:id="|department-${department.id}|">
-                <label class="form-check-label" th:for="|department-${department.id}|" th:text="${department.name}" />
+              <label class="form-label">Reparti</label>
+              <div class="form-check" th:each="department : ${departments}">
+                <input type="checkbox" class="form-check-input" th:field="*{departments}" th:value="${department.id}"
+                  th:errorClass="is-invalid" />
+                <label class="form-check-label" th:text="${department.name}"></label>
               </div>
             </div>
-
-            <div class="col-12">
-              <button th:unless="${typePage}" type="submit" class="btn btn-primary">Crea</button>
-              <button th:if="${typePage}" type="submit" class="btn btn-primary">Modifica</button>
+            <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('departments')}">
+              <ul>
+                <li th:each="error : ${#fields.errors('departments')}" th:text="${error}"></li>
+              </ul>
             </div>
           </div>
-        </form>
-      </section>
+
+          <div class="col-12">
+            <button th:unless="${typePage}" type="submit" class="btn btn-primary">Crea</button>
+            <button th:if="${typePage}" type="submit" class="btn btn-primary">Modifica</button>
+          </div>
+    </div>
+    </form>
+    </section>
     </div>
   </main>
 

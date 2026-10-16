@@ -46,8 +46,7 @@ public class Department {
   @JsonBackReference
   private Building building;
 
-  @ManyToMany
-  @JoinTable(name = "department_machine", joinColumns = @JoinColumn(name = "department_id"), inverseJoinColumns = @JoinColumn(name = "machine_id"))
+  @ManyToMany(mappedBy = "departments")
   @JsonIgnoreProperties("departments")
   private List<Machine> machines;
 

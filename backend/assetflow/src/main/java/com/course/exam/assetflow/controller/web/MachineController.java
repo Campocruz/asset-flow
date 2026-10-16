@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.course.exam.assetflow.model.Machine;
+import com.course.exam.assetflow.service.DepartmentService;
 import com.course.exam.assetflow.service.MachineService;
 
 import jakarta.validation.Valid;
@@ -21,6 +22,9 @@ public class MachineController {
 
   @Autowired
   private MachineService machineService;
+
+  @Autowired
+  private DepartmentService departmentService;
 
   @GetMapping
   public String index(Model model) {
@@ -37,6 +41,7 @@ public class MachineController {
   @GetMapping("/create")
   public String create(Model model) {
     model.addAttribute("machine", new Machine());
+    model.addAttribute("departments", departmentService.findAllDepartment());
     model.addAttribute("typePage", false);
     return "machine/edit-or-create";
   }
@@ -44,6 +49,7 @@ public class MachineController {
   @PostMapping("/create")
   public String create(@Valid @ModelAttribute("machine") Machine formMachine, BindingResult bindingResult,
       Model model) {
+    model.addAttribute("departments", departmentService.findAllDepartment());
     model.addAttribute("typePage", false);
     if (bindingResult.hasErrors()) {
       return "machine/edit-or-create";
@@ -55,6 +61,7 @@ public class MachineController {
   @GetMapping("/edit/{id}")
   public String edit(@PathVariable Integer id, Model model) {
     model.addAttribute("machine", machineService.getMachineById(id));
+    model.addAttribute("departments", departmentService.findAllDepartment());
     model.addAttribute("typePage", true);
     return "machine/edit-or-create";
   }
@@ -62,6 +69,7 @@ public class MachineController {
   @PostMapping("/edit/{id}")
   public String edit(@Valid @ModelAttribute("machine") Machine formMachine, BindingResult bindingResult,
       Model model) {
+    model.addAttribute("departments", departmentService.findAllDepartment());
     model.addAttribute("typePage", true);
     if (bindingResult.hasErrors()) {
       return "machines/edit-or-create";
