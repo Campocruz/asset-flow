@@ -41,7 +41,7 @@ public class DepartmentRestController {
 
   @PostMapping
   public ResponseEntity<Department> store(@Valid @RequestBody Department department) {
-    return new ResponseEntity<Department>(departmentService.setDepartment(department), HttpStatus.CREATED);
+    return new ResponseEntity<>(departmentService.setDepartment(department), HttpStatus.CREATED);
   }
 
   @PutMapping("/{id}")
@@ -56,9 +56,9 @@ public class DepartmentRestController {
   @DeleteMapping("/{id}")
   public ResponseEntity<Department> delete(@PathVariable Integer id) {
     if (departmentService.departmentExist(id)) {
+      departmentService.deleteDepartmentById(id);
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    departmentService.deleteDepartmentById(id);
     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
   }
 }

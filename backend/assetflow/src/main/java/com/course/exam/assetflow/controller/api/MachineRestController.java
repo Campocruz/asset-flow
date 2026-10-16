@@ -8,11 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.course.exam.assetflow.model.Department;
 import com.course.exam.assetflow.model.Machine;
 import com.course.exam.assetflow.service.MachineService;
 
@@ -31,6 +33,14 @@ public class MachineRestController {
   }
 
   @GetMapping("/{id}")
+  public ResponseEntity<Machine> show(@PathVariable Integer id) {
+    if (machineService.machineExist(id)) {
+      return new ResponseEntity<>(machineService.getMachineById(id), HttpStatus.OK);
+    }
+    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+  }
+
+  @PostMapping
   public ResponseEntity<Machine> store(@Valid @RequestBody Machine machine) {
     return new ResponseEntity<>(machineService.setMachine(machine), HttpStatus.OK);
   }
@@ -47,10 +57,13 @@ public class MachineRestController {
   @DeleteMapping("/{id}")
   public ResponseEntity<Machine> delete(@PathVariable Integer id) {
     if (machineService.machineExist(id)) {
+      Machine machineToDelete = machineService.getMachineById(id);
+      for (Department depart : machineToDelete.getDepartments()) {
+        depart.getMachines().remove(machineToDelete);
+      }
+      machineService.deleteMachineById(id);
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    machineService.deleteMachineById(id);
     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
   }
-
 }
