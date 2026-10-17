@@ -7,7 +7,7 @@ export default function DefaultLayout() {
     <>
       <Header />
 
-      <main className="min-vh-100">
+      <main className="container min-vh-100">
         <Outlet />
       </main>
 
