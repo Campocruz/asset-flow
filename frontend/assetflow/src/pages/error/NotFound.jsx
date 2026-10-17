@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 export default function NotFound() {
 
@@ -12,8 +12,8 @@ export default function NotFound() {
         <p className="text-body-secondary mb-4">
           La pagina che stai cercando non esiste o è stata spostata.
         </p>
-        <a href="index.html" className="btn btn-primary me-2"><i className="bi bi-house"></i> Torna alla home</a>
-        <a href="dashboard.html" className="btn btn-outline-secondary">Vai alla dashboard</a>
+        <Link to="/" className="btn btn-primary me-2"><i className="bi bi-house"></i> Torna alla home</Link>
+        <Link to="/dashboard" className="btn btn-outline-secondary">Vai alla dashboard</Link>
       </section>
     </>
   )

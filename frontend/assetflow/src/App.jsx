@@ -12,6 +12,7 @@ import DashboardPage from './pages/DashboardPage'
 import BuildinPage from './pages/factory/BuildingPage'
 import DepartmentPage from './pages/factory/DepartmentPage'
 import MachinePage from './pages/factory/MachinePage'
+import NotFound from './pages/error/NotFound'
 
 export default function App() {
 
@@ -27,6 +28,7 @@ export default function App() {
               <Route path='/building' element={<BuildinPage />} />
               <Route path='/department' element={<DepartmentPage />} />
               <Route path='/machine' element={<MachinePage />} />
+              <Route path='*' element={<NotFound />} />
             </Route>
           </Routes>
         </ThemeProvider>
