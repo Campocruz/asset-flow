@@ -43,7 +43,7 @@ public class Department {
 
   @ManyToOne
   @JoinColumn(name = "building_id", nullable = false)
-  @JsonBackReference
+  @JsonIgnoreProperties("departments")
   private Building building;
 
   @ManyToMany(mappedBy = "departments")

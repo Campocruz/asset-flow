@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import LoadingPage from "../../components/global/LoadingPage/LoadingPage";
 import Form from "../../components/form/Form";
+import SelectBox from "../../components/form/SelectBox";
 
 const urlDepartments = 'http://127.0.0.1:8080/api/v1/departments';
 const urlBuildings = 'http://127.0.0.1:8080/api/v1/buildings';
@@ -12,24 +13,24 @@ const departmentFields = [
 ];
 
 const departmentInit = [
-  { "code": "", "name": "", "description": "" }
+  { "code": "", "name": "", "description": "", "building": { "id": "" } }
 ];
 
 export default function DepartmentPage() {
 
-  const [departmentForm, setDepartmentForm] = useState({ "code": "", "name": "", "description": "", "building": "" });
+  const [departmentForm, setDepartmentForm] = useState(departmentInit);
   const [departments, setDepartments] = useState();
   const [department, setDepartment] = useState();
   const [buildingList, setBuildingList] = useState();
   const [load, setLoad] = useState(true);
 
-  function fetchData(url) {
-    fetch(url)
+  function fetchData(urlMac, urlBuil) {
+    fetch(urlMac)
       .then(response => response.json())
       .then(data => { setDepartments(data); setLoad(false); })
       .catch(err => console.log(err));
 
-    fetch(urlBuildings)
+    fetch(urlBuil)
       .then(response => response.json())
       .then(data => setBuildingList(data))
       .catch(err => console.log(err));
@@ -49,7 +50,8 @@ export default function DepartmentPage() {
       .then(response => {
         if (!response.ok) throw new Error(`Error: ${response.status}`);
         setDepartmentForm(departmentInit);
-        fetchData(urlDepartments);
+        setDepartment();
+        fetchData(urlDepartments, urlBuildings);
       })
       .catch(err => console.log(err));
   }
@@ -62,7 +64,7 @@ export default function DepartmentPage() {
         if (!response.ok) throw new Error(`Error: ${response.status}`);
         setDepartmentForm(departmentInit);
         setDepartment();
-        fetchData(urlDepartments);
+        fetchData(urlDepartments, urlBuildings);
       })
       .catch(err => console.log(err));
   }
@@ -75,13 +77,18 @@ export default function DepartmentPage() {
       .then(response => {
         if (!response.ok) throw new Error(`Error: ${response.status}`);
         if (departmentForm.id === id) setDepartmentForm(departmentInit);
-        fetchData(urlDepartments);
+        fetchData(urlDepartments, urlBuildings);
       })
       .catch(err => console.log(err));
   }
 
   const handleChange = (e) => {
     setDepartmentForm({ ...departmentForm, [e.target.name]: e.target.value });
+  };
+
+  const handleBuildingChange = (e) => {
+    const id = e.target.value;
+    setDepartmentForm({ ...departmentForm, building: { id: id === "" ? "" : Number(id) } });
   };
 
   const showDepartment = (id) => {
@@ -103,7 +110,7 @@ export default function DepartmentPage() {
   };
 
   useEffect(() => {
-    fetchData(urlDepartments)
+    fetchData(urlDepartments, urlBuildings);
   }, [])
 
   if (load) { return <LoadingPage /> }
@@ -117,6 +124,7 @@ export default function DepartmentPage() {
               <thead>
                 <tr>
                   <th scope="col">#</th>
+                  <th scope="col">Building</th>
                   <th scope="col">Code</th>
                   <th scope="col">Name</th>
                   <th scope="col">Description</th>
@@ -127,10 +135,11 @@ export default function DepartmentPage() {
                 {departments?.map(department =>
                   <tr key={department.id}>
                     <th scope="row">{department.id}</th>
-                    <td>{department.code}</td>
-                    <td>{department.name}</td>
-                    <td>{department.description}</td>
-                    <td>
+                    <th scope="row">{department.building.code}</th>
+                    <td scope="row">{department.code}</td>
+                    <td scope="row">{department.name}</td>
+                    <td scope="row">{department.description}</td>
+                    <td scope="row">
                       <button className="btn btn-secondary btn-sm" onClick={() => { showDepartment(department.id) }}><i className="bi bi-pencil-square"></i></button>-
                       <button className="btn btn-danger btn-sm" onClick={() => deleteDepartment(department.id)}><i className="bi bi-trash"></i></button>
                     </td>
@@ -141,11 +150,23 @@ export default function DepartmentPage() {
             </table>
           </div>
           <div className="col-6">
-            {department ? <h4>Edit Building</h4> : <h4>Add Building</h4>}
-            {department ? <Form fields={departmentFields} data={departmentForm} handleChange={handleChange} save={(e) => editDepartment(e, department.id)} /> : <Form fields={departmentFields} data={departmentForm} handleChange={handleChange} save={(e) => postDepartment(e)} />}
+            {department ? <h4>Edit Department</h4> : <h4>Add Department</h4>}
+            {department ?
+              <Form fields={departmentFields} data={departmentForm} handleChange={handleChange} save={(e) => editDepartment(e, department.id)} >
+                <div className="col-md-4">
+                  <SelectBox labeldName={"Building"} value={departmentForm.building} onChange={handleBuildingChange} optionList={buildingList} />
+                </div>
+              </Form>
+              :
+              <Form fields={departmentFields} data={departmentForm} handleChange={handleChange} save={(e) => postDepartment(e)} >
+                <div className="col-md-4">
+                  <SelectBox labeldName={"Building"} value={departmentForm.building} onChange={handleBuildingChange} optionList={buildingList} />
+                </div>
+              </Form>
+            }
           </div>
         </div>
-      </div>
+      </div >
     </>
   )
 }
