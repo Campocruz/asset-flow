@@ -27,9 +27,9 @@ export default function Navbar() {
                   Factory
                 </Link>
                 <ul className="dropdown-menu">
-                  <li><NavLink className="dropdown-item" to="/building">Building</NavLink></li>
-                  <li><NavLink className="dropdown-item" to="/department">Department</NavLink></li>
-                  <li><NavLink className="dropdown-item" to="/machine">Machine</NavLink></li>
+                  <li><NavLink className="dropdown-item" to="/admin/building">Building</NavLink></li>
+                  <li><NavLink className="dropdown-item" to="/admin/department">Department</NavLink></li>
+                  <li><NavLink className="dropdown-item" to="/admin/machine">Machine</NavLink></li>
                   <li><hr className="dropdown-divider" /></li>
                   <li><NavLink className="dropdown-item" to="/">Something else here</NavLink></li>
                 </ul>

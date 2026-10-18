@@ -43,6 +43,7 @@ export default function BuildinPage() {
       .then(response => {
         if (!response.ok) throw new Error(`Error: ${response.status}`);
         setBuildForm(buildingInit);
+        setBuilding();
         fetchData(urlBuildings);
       })
       .catch(err => console.log(err));
@@ -136,7 +137,7 @@ export default function BuildinPage() {
           </div>
           <div className="col-6">
             {building ? <h4>Edit Building</h4> : <h4>Add Building</h4>}
-            {building ? <Form fields={buildingFields} data={buildForm} handleChange={handleChange} save={(e) => editBuild(e, building.id)} /> : <Form fields={buildingFields} data={buildForm} handleChange={handleChange} save={(e) => postBuild(e)} />}
+            {building ? <Form fields={buildingFields} data={buildForm} handleChange={handleChange} save={(e) => editBuild(e, buildForm.id)} /> : <Form fields={buildingFields} data={buildForm} handleChange={handleChange} save={(e) => postBuild(e)} />}
           </div>
         </div>
       </div>
