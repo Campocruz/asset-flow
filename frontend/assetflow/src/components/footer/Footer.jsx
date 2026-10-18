@@ -1,7 +1,12 @@
+import { useTheme } from "../../context/ThemeContext";
+
 export default function Footer() {
+
+  const { theme } = useTheme();
+
   return (
     <>
-      <footer>
+      <footer className="container" data-bs-theme={theme}>
         <div className="row justify-content-around">
           <div className="col-3">
             <ul>
