@@ -1,12 +1,15 @@
 import { Outlet } from "react-router"
+import Header from "../components/header/Header"
 import Footer from "../components/footer/Footer"
-export default function AdminLayout() {
+
+export default function DefaultLayout() {
+
 
   return (
     <>
-      <Headers />
+      <Header />
 
-      <main className="min-vh-100">
+      <main className="container min-vh-100">
         <Outlet />
       </main>
 

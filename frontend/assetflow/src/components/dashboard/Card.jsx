@@ -1,3 +1,9 @@
+const statusClasses = {
+  ATTIVA: "text-bg-success",
+  DISATTIVA: "text-bg-danger",
+  IN_MANUTENZIONE: "text-bg-warning",
+};
+
 export default function Card({ item }) {
 
   return (
@@ -19,7 +25,7 @@ export default function Card({ item }) {
                 {depart.machines?.map(machine =>
                   <li className="list-group-item d-flex justify-content-between align-items-center px-0">
                     <span>{machine.name} <small className="text-body-secondary">{machine.code}</small></span>
-                    <span className="badge text-bg-success">{machine.status}</span>
+                    <span className={`badge ${statusClasses[machine.status]} ?? "text-bg-secondary"`}>{machine.status}</span>
                   </li>
                 )}
               </ul>
@@ -27,7 +33,7 @@ export default function Card({ item }) {
           )}
 
         </div>
-        <div className="card-footer text-body-secondary small">{item.departments.length} reparti &middot; 3 macchine</div>
+        <div className="card-footer text-body-secondary small">{item.departments.length} reparti &middot; {item.departments?.reduce((tot, depart) => tot + (depart.machines?.length ?? 0), 0) ?? 0} macchine</div>
       </div>
     </>
   )
