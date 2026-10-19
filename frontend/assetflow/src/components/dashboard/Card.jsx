@@ -1,6 +1,6 @@
 const statusClasses = {
   ATTIVA: "text-bg-success",
-  DISATTIVA: "text-bg-danger",
+  FERMA: "text-bg-danger",
   IN_MANUTENZIONE: "text-bg-warning",
 };
 
