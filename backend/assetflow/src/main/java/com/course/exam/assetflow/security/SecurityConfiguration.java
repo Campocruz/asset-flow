@@ -39,7 +39,7 @@ public class SecurityConfiguration {
             .requestMatchers("/machines/create", "/machines/edit/**").hasAllAuthorities("ADMIN", "USER")
             .requestMatchers(HttpMethod.POST, "/machines/**").hasAllAuthorities("ADMIN", "USER")
             .requestMatchers("/api/v1/**").permitAll()
-            .requestMatchers("/", "/dashboard", "/css/**", "/js/**", "/error").permitAll()
+            .requestMatchers("/", "/dashboard", "/webjars/**").permitAll()
             .anyRequest().authenticated())
         .formLogin(Customizer.withDefaults())
         .logout(Customizer.withDefaults());
