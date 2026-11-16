@@ -62,7 +62,7 @@
 
           <section class="p-1 d-flex border border-warning-subtle rounded">
             <div sec:authorize="isAuthenticated()">
-              <p>Benvenuto <span sec:authentication="name"></span></p>
+              <p><i class="bi bi-person"></i><span sec:authentication="name"></span></p>
               <a class="btn btn-primary nav-link" th:href="@{/logout}">Esci</a>
             </div>
 
