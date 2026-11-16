@@ -48,7 +48,7 @@
               </ul>
             </li>
           </ul>
-          <section class="px-2">
+          <section class="px-2" sec:authorize="hasAuthority('ADMIN')">
             <div class="btn btn-secondary" th:if="${page == 'buildings'}">
               <a class=" nav-link" th:href="@{/buildings/create}">Nuovo Fabbricato</a>
             </div>
@@ -59,11 +59,11 @@
               <a class=" nav-link" th:href="@{/machines/create}">Nuova macchina</a>
             </div>
           </section>
-          <form class="d-flex" role="search" method="GET" th:action="@{/cerca}">
-            <input class="form-control me-2" type="text" placeholder="Cerca" aria-label="Cerca" th:value="${value}"
-              name="value" />
-            <button class="btn btn-outline-success" type="submit">Cerca</button>
-          </form>
+          <section>
+            <div class="btn btn-secondary">
+              <a class=" nav-link" th:href="@{/logout}">Logout</a>
+            </div>
+          </section>
         </div>
       </div>
     </nav>
