@@ -34,8 +34,11 @@ public class DepartmentController {
 
   @GetMapping("/{id}")
   public String show(@PathVariable Integer id, Model model) {
-    model.addAttribute("department", departmentService.getDepartmentById(id));
-    return "";
+    Department departmentAttempt = departmentService.getDepartmentById(id);
+    model.addAttribute("department", departmentAttempt);
+    model.addAttribute("building", departmentAttempt.getBuilding());
+    model.addAttribute("machines", departmentAttempt.getMachines());
+    return "department/show";
   }
 
   @GetMapping("/create")

@@ -78,4 +78,9 @@ public class Building {
   public void setDepartments(List<Department> departments) {
     this.departments = departments;
   }
+
+  @Override
+  public String toString() {
+    return String.format("%s, %s", this.name, this.address);
+  }
 }

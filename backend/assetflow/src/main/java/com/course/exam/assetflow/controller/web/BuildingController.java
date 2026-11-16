@@ -31,7 +31,7 @@ public class BuildingController {
   @GetMapping("/{id}")
   public String show(@PathVariable Integer id, Model model) {
     model.addAttribute("building", buildingService.getBuildingById(id));
-    return "";
+    return "building/show";
   }
 
   @GetMapping("/create")

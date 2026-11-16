@@ -34,8 +34,10 @@ public class MachineController {
 
   @GetMapping("/{id}")
   public String show(@PathVariable Integer id, Model model) {
-    model.addAttribute("machine", machineService.getMachineById(id));
-    return "";
+    Machine machineAttempt = machineService.getMachineById(id);
+    model.addAttribute("machine", machineAttempt);
+    model.addAttribute("departments", machineAttempt.getDepartments());
+    return "machine/show";
   }
 
   @GetMapping("/create")
