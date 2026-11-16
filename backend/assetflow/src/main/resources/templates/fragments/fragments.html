@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://thymeleaf.org/extras/spring-security">
 
 <head>
   <title>Fragments</title>
@@ -59,9 +59,15 @@
               <a class=" nav-link" th:href="@{/machines/create}">Nuova macchina</a>
             </div>
           </section>
-          <section>
-            <div class="btn btn-secondary">
-              <a class=" nav-link" th:href="@{/logout}">Logout</a>
+
+          <section class="p-1 d-flex border border-warning-subtle rounded">
+            <div sec:authorize="isAuthenticated()">
+              <p>Benvenuto <span sec:authentication="name"></span></p>
+              <a class="btn btn-primary nav-link" th:href="@{/logout}">Esci</a>
+            </div>
+
+            <div class="btn btn-primary" sec:authorize="isAnonymous()">
+              <a class="nav-link" th:href="@{/login}">Accedi</a>
             </div>
           </section>
         </div>
